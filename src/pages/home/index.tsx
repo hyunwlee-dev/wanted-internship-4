@@ -1,6 +1,6 @@
 import React from "react";
-import { BaseLayout } from "../../components/BaseLayout";
-import TimeSeriesChartContainer from "../../container/TimeSeriesChartContainer";
+import { BaseLayout } from "@/components/BaseLayout";
+import TimeSeriesChartContainer from "@/container/TimeSeriesChartContainer";
 
 const Home = ({ }) => {
   return (
