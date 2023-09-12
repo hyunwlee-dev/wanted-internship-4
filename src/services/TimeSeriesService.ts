@@ -1,8 +1,9 @@
 // TimeSeries Interface
 //
-// get(): Promise<TimeSeries>
+// get(): Promise<TimeSeriesResponse>
 
 import { HttpClient } from "@/httpClient/httpClient";
+import { formatDate } from "@/utils/formatDate";
 
 // TimeSeries
 // {
@@ -11,6 +12,12 @@ import { HttpClient } from "@/httpClient/httpClient";
 //     value_area: number;
 //     value_bar: number;
 //   }
+// }
+//
+// TimeSeriesResponse = {
+//   options: string[];
+//   barValues: number[];
+//   areaValues: number[];
 // }
 
 export class TimeSeriesServiceImpl {
@@ -21,6 +28,14 @@ export class TimeSeriesServiceImpl {
 
   async get() {
     const response = await this.httpClient.fetch({ headers: {} }).get(`/data`);
-    return response.data.response;
+    const timeSeries = response.data.response;
+    const options = Object.keys(timeSeries).map((key) => formatDate(key));
+    const barValues = Object.keys(timeSeries).map((key) => timeSeries[key].value_bar);
+    const areaValues = Object.keys(timeSeries).map((key) => timeSeries[key].value_area);
+    return {
+      options: options,
+      barValues,
+      areaValues,
+    }
   }
 }

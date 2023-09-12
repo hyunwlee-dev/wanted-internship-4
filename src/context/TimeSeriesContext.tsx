@@ -11,7 +11,7 @@ const TimeSeriesContext = createContext<{ timeSeries: TimeSeriesResponse | null 
 export const useTimeSeries = () => useContext(TimeSeriesContext);
 
 export const TimeSeriesProvider = ({ children, timeSeriesService }: ITimeSeriesProvider) => {
-  const [timeSeries, setTimeSeries] = useState(null);
+  const [timeSeries, setTimeSeries] = useState<TimeSeriesResponse | null>(null);
   useEffect(() => {
     timeSeriesService.get().then((timeSeries) => setTimeSeries(timeSeries));
   }, [timeSeriesService, setTimeSeries]);

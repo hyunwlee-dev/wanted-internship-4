@@ -1,14 +1,16 @@
+import React, { useState } from "react";
+import { Chart } from "@/components/Chart";
 import { useTimeSeries } from "@/context/TimeSeriesContext";
-import { HttpClient } from "@/httpClient/httpClient";
-import { TimeSeriesServiceImpl } from "@/services/TimeSeriesService";
-import React, { useEffect } from "react";
 
 const TimeSeriesChartContainer = () => {
   const { timeSeries } = useTimeSeries();
-  console.info('timeSeries: ', timeSeries);
+  console.info(timeSeries?.barValues)
   return (
     <>
       시계열 차트
+      {timeSeries &&
+        <Chart categories={timeSeries?.options} data={timeSeries?.barValues} />
+      }
     </>
   )
 }
