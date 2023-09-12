@@ -3,7 +3,6 @@
 // get(): Promise<TimeSeries>
 
 import { HttpClient } from "@/httpClient/httpClient";
-import { AxiosInstance } from "axios";
 
 // TimeSeries
 // {
@@ -22,6 +21,6 @@ export class TimeSeriesServiceImpl {
 
   async get() {
     const response = await this.httpClient.fetch({ headers: {} }).get(`/data`);
-    return response.data;
+    return response.data.response;
   }
 }
