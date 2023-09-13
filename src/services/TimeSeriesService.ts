@@ -30,12 +30,18 @@ export class TimeSeriesServiceImpl {
     const response = await this.httpClient.fetch({ headers: {} }).get(`/data`);
     const timeSeries = response.data.response;
     const options = Object.keys(timeSeries).map((key) => formatDate(key));
-    const barValues = Object.keys(timeSeries).map((key) => timeSeries[key].value_bar);
-    const areaValues = Object.keys(timeSeries).map((key) => timeSeries[key].value_area);
+    const barValues = Object.keys(timeSeries).map((key) => ({ id: timeSeries[key].id, value_bar: timeSeries[key].value_bar }));
+    const areaValues = Object.keys(timeSeries).map((key) => timeSeries[key].value_area * 100);
+    const guTable: string[] = ['해제'];
+    Object.keys(timeSeries).forEach(key => {
+      if (!guTable.includes(timeSeries[key].id))
+        guTable.push(timeSeries[key].id);
+    })
     return {
       options: options,
       barValues,
       areaValues,
+      guTable,
     }
   }
 }

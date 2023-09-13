@@ -3,12 +3,18 @@ import ReactChart from 'react-apexcharts'
 
 interface IProps {
   categories: string[];
-  data: number[];
+  barValues: number[];
+  pickedBarValues: number[];
+  pickedSeriesCategory: string;
+  areaValues: number[];
 }
 
 export const Chart = ({
   categories,
-  data,
+  barValues,
+  pickedBarValues,
+  pickedSeriesCategory,
+  areaValues
 }: IProps) => {
   const options = {
     xaxis: {
@@ -16,19 +22,29 @@ export const Chart = ({
     },
     dataLabels: {
       enabled: false,
-    }
+    },
   };
   const series = [
     {
-      name: "all",
-      data: data,
+      name: "value_bar",
+      data: barValues,
+      type: 'bar'
     },
+    {
+      name: pickedSeriesCategory,
+      data: pickedBarValues,
+      type: 'bar'
+    },
+    {
+      name: 'value_area',
+      data: areaValues,
+      type: 'area',
+    }
   ];
   return (
     <ReactChart
       options={options}
       series={series}
-      type="bar"
     />
   )
 }

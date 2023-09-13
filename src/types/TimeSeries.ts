@@ -1,5 +1,6 @@
 export type TimeSeriesResponse = {
   options: string[];
-  barValues: number[];
+  barValues: { id: string, value_bar: number }[];
   areaValues: number[];
+  guTable: string[];
 }
